@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "227993109548",
+    "project_id": "bcl-earn",
+    "storage_bucket": "bcl-earn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227993109548:android:34b6f47255f9489086bd89",
+        "android_client_info": {
+          "package_name": "depara.nazmul81.bcl_earn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227993109548-r1j3rh6ofb5t5c05f81ebtcg09qh4scf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "depara.nazmul81.bcl_earn",
+            "certificate_hash": "f743694921ac49802f79ca18bc139805217cf4e8"
+          }
+        },
+        {
+          "client_id": "227993109548-tv8shsfpud5rtu4htq98pgrf5126c82r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsclIbYt4QlcMzRCglatQCQxavyPikNu4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227993109548-tv8shsfpud5rtu4htq98pgrf5126c82r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
