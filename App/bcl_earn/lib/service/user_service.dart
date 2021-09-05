@@ -11,14 +11,15 @@ class UserService {
     return stream.map((event) => MyUser.toObj(event));
   }
 
-  Stream<List<MyUser>> getAllUsers() {
+  /*Stream<List<MyUser>> getAllUsers() {
     var stream = FirebaseFirestore.instance
         .collection('users')
-        .orderBy('balance')
+        .orderBy('balance', descending: true)
+        .limit(10)
         .snapshots();
     return stream
         .map((event) => event.docs.map((e) => MyUser.toObj(e)).toList());
-  }
+  }*/
 
   /*Future<MyUser> getCurrentUser() async {
     var user;
@@ -34,7 +35,7 @@ class UserService {
 
   Future updateUserBalance(int bal, MyUser user) async {
     await FirebaseFirestore.instance.collection('users').doc(user.uid).update(
-        {'balance': user.balance + bal, 'dailyBonusDate': Timestamp.now()});
+        {'balance': user.balance + bal, 'LastDailyBonusDate': Timestamp.now()});
   }
 
   Future addRefer(String mobile, int bal) async {
@@ -63,4 +64,46 @@ class UserService {
 
     return;
   }
+
+  Future updateUser() async {
+    FirebaseFirestore.instance.collection('users').get().then((docs) {
+      docs.docs.forEach((element) {
+        FirebaseFirestore.instance.collection('users').doc(element.id).set({
+          'balance': element.data()['balance'],
+          'name': element.data()['name'],
+          'password': element.data()['password'],
+          'mobile': element.data()['mobile'],
+          'uid': element.data()['uid'],
+          'country': element.data()['country'],
+          'refer': element.data()['refer'],
+          'LastDailyBonusDate': DateTime.now(),
+          'referralNumber': element.data()['referralNumber'],
+          'imageUrl': element.data()['image'],
+          'package': element.data()['package'],
+          'click': element.data()['click'],
+          'message': '',
+        });
+      });
+    });
+  }
 }
+
+/*
+FirebaseFirestore.instance
+            .collection('users')
+            .doc(element.id)
+            .update({
+          'balance': element.data()['balance'],
+          'name': element.data()['name'],
+          'password': element.data()['password'],
+          'mobile': element.data()['mobile'],
+          'uid': element.data()['uid'],
+          'country': element.data()['country'],
+          'refer': element.data()['refer'],
+          'LastDailyBonusDate': element.data()['dailyBonusDate'],
+          'referralNumber': element.data()['referralNumber'],
+          'image': element.data()['image'],
+          'package': element.data()['package'],
+          'click': element.data()['click'],
+          'message': '',
+        });*/

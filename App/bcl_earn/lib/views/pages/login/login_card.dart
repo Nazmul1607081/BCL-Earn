@@ -1,6 +1,7 @@
 import 'package:bcl_earn/constants/colors.dart';
 import 'package:bcl_earn/constants/images.dart';
 import 'package:bcl_earn/controllers/auth/auth_controller.dart';
+import 'package:bcl_earn/controllers/auth/login_controller.dart';
 
 import 'package:bcl_earn/views/pages/signup/signup_page.dart';
 import 'package:bcl_earn/views/widgets/form_field.dart';
@@ -11,7 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginCard extends StatelessWidget {
-  final loginController = Get.put(AuthController());
+  final loginController = Get.put(LoginController());
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -34,7 +36,7 @@ class LoginCard extends StatelessWidget {
                     ),
                     padding: EdgeInsets.all(15),
                     child: Form(
-                      key: loginController.formKey,
+                      key: formKey,
                       child: Column(
                         children: [
                           SizedBox(
@@ -71,7 +73,9 @@ class LoginCard extends StatelessWidget {
                                 : MyLoginButton(
                                     label: "LOGIN",
                                     onClick: () {
-                                      loginController.login();
+                                      if (formKey.currentState.validate()) {
+                                        loginController.login();
+                                      }
                                     },
                                     color: MyColors.appBarColor,
                                     labelColor: Colors.white,

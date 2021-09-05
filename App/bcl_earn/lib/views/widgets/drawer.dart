@@ -58,7 +58,7 @@ class MyDrawer extends StatelessWidget {
                   },
                 ),
                 MyAd(),
-                MyDrawerButton(
+                /*MyDrawerButton(
                   label: "Logout",
                   icon: Icons.logout,
                   onClick: () {
@@ -66,7 +66,7 @@ class MyDrawer extends StatelessWidget {
                         .signOut()
                         .then((value) => Get.to(() => MyRoot()));
                   },
-                ),
+                ),*/
                 MyDrawerButton(
                   label: "About Developer",
                   icon: Icons.person,

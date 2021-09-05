@@ -44,9 +44,9 @@ class DashBoardItems {
             "Your account currently disable for maximum invalid click");
       }
     }),
-    Item("Leader Board", Icons.leaderboard, () {
+    /*Item("Leader Board", Icons.leaderboard, () {
       Get.to(() => MyLeaderBoard());
-    }),
+    }),*/
     Item("Withdraw", Icons.outbox, () {
       Get.to(() => MyWithdrawPage());
     }),

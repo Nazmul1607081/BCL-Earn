@@ -19,9 +19,6 @@ class MyRoot extends StatefulWidget {
 
 class _MyRootState extends State<MyRoot> {
   final rootController = Get.put(RootController());
-  final authController = Get.put(AuthController());
-  final taskController = Get.put(TaskController());
-  final withdrawController = Get.put(MyWithDrawController());
 
   @override
   void initState() {
@@ -31,29 +28,14 @@ class _MyRootState extends State<MyRoot> {
   @override
   Widget build(BuildContext context) {
     return GetX<RootController>(builder: (controller) {
-      if (!controller.myAdmin.value.maintainMode) {
-        return MainTaine();
-      }
       if (controller.connectionStatus.value != 'ok') {
         return ConnectionFailed(
           data: controller.connectionStatus.value,
         );
       } else if (controller.user == null) {
         return MyLoginPage();
-      } else if (taskController.myAdmin.totalTask != -1 &&
-          taskController.myAdmin.totalTask != -1 &&
-          taskController.task.isNotEmpty &&
-          authController.myUser.balance != -1 &&
-          taskController.myUser.balance != -1 &&
-          authController.other.notice != " " &&
-          withdrawController.myUser.balance != -1 &&
-          authController.allUsers.isNotEmpty) {
+      } else
         return MyDashBoardPage();
-      } else {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
     });
   }
 }

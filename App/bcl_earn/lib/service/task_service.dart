@@ -10,6 +10,7 @@ class TaskService {
     var stream = FirebaseFirestore.instance
         .collection('tasks')
         .orderBy('sno')
+        .limit(10)
         .snapshots();
     return stream.map((event) => event.docs
         .map((e) => MyTask(e.data()['url'], e.data()['time'], e.data()['sno'],

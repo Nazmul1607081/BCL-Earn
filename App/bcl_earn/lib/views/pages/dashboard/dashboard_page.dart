@@ -2,6 +2,7 @@ import 'package:bcl_earn/constants/colors.dart';
 import 'package:bcl_earn/constants/strings.dart';
 import 'package:bcl_earn/controllers/auth/auth_controller.dart';
 import 'package:bcl_earn/controllers/task/task_controller.dart';
+import 'package:bcl_earn/controllers/withdraw/withdraw_controller.dart';
 import 'package:bcl_earn/views/widgets/banner_ad.dart';
 import 'package:bcl_earn/views/widgets/drawer.dart';
 import 'package:bcl_earn/views/pages/dashboard/dashboard.dart';
@@ -62,13 +63,8 @@ class _MyDashBoardPageState extends State<MyDashBoardPage> {
     super.initState();
   }
 
-  final taskController = Get.put(TaskController());
-  final authController = Get.put(AuthController());
-
   @override
   Widget build(BuildContext context) {
-    print(taskController.task.length);
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: MyColors.appBarColor,

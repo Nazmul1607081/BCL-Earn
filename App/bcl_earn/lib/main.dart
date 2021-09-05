@@ -2,7 +2,9 @@ import 'package:bcl_earn/constants/strings.dart';
 import 'package:bcl_earn/controllers/auth/auth_controller.dart';
 import 'package:bcl_earn/helper/device_info.dart';
 import 'package:bcl_earn/models/task.dart';
+import 'package:bcl_earn/service/user_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'dart:async';
 import 'package:bcl_earn/views/widgets/splash_page.dart';
@@ -13,6 +15,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as GoogleAdPackage;
 import 'package:native_admob_flutter/native_admob_flutter.dart'
     as NativeAdPackage;
+
+import 'package:path_provider/path_provider.dart';
 
 AndroidNotificationChannel channel = AndroidNotificationChannel(
     'bcl_earn', 'BCL Earn', "Earn a lot",
@@ -45,6 +49,14 @@ Future<void> main() async {
         .add(MyTask("https://www.google.com/", 3, i, 'news').toMap());
   }*/
 
+  var path = await getApplicationDocumentsDirectory();
+
+/*  Hive.init(path.path + '/hive');*/
+  //print('FirebaseAuth.instance.currentUser.uid');
+  //print(FirebaseAuth.instance.currentUser.uid);
+  /*UserService().updateUser().then((value) {
+    print("DONE");
+  });*/
   runApp(MyApp());
 }
 
@@ -54,8 +66,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //FirebaseAuth.instance.signOut();
-    final authController = Get.put(AuthController());
-    MyDeviceInfoHelper().getDeviceInfo();
+    //MyDeviceInfoHelper().getDeviceInfo();
     return GetMaterialApp(
       debugShowCheckedModeBanner: true,
       title: MyStrings.appName,

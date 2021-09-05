@@ -14,8 +14,8 @@ class RootController extends GetxController {
   final Connectivity _connectivity = Connectivity();
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
   var connectionStatus = 'Error'.obs;
-  Rx<MyAdmin> myAdmin =
-      MyAdmin(0, 5, 10, 20, 25, 20, 1000, 3, "Notification", "", false).obs;
+  /*Rx<MyAdmin> myAdmin =
+      MyAdmin(0, 5, 10, 20, 25, 20, 1000, 3, "Notification", "", false).obs;*/
 
   @override
   void onInit() {
@@ -23,7 +23,7 @@ class RootController extends GetxController {
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
 
-    myAdmin.bindStream(AdminService().getAdmin());
+    /*myAdmin.bindStream(AdminService().getAdmin());*/
     super.onInit();
   }
 

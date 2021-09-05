@@ -6,6 +6,7 @@ import 'package:bcl_earn/views/widgets/profile_text.dart';
 import 'package:bcl_earn/views/widgets/text_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:country_code_picker/country_code.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -108,14 +109,14 @@ class ProfileCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(99999),
                       child: AspectRatio(
                         aspectRatio: 1,
-                        child: (authController.myUser.image == "")
+                        child: (authController.myUser.imageUrl == "")
                             ? Image.asset(
                                 MyImages.loginPerson,
                                 fit: BoxFit.cover,
                               )
                             : CachedNetworkImage(
                                 fit: BoxFit.cover,
-                                imageUrl: "${authController.myUser.image}",
+                                imageUrl: "${authController.myUser.imageUrl}",
                                 placeholder: (context, url) => CircleAvatar(
                                     radius: Get.height / 16,
                                     backgroundImage:

@@ -14,8 +14,6 @@ import 'package:get/get.dart';
 import 'package:bcl_earn/helper/date_difference.dart';
 
 class AuthController extends GetxController {
-  final formKey = GlobalKey<FormState>();
-
   final mobileController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -42,7 +40,7 @@ class AuthController extends GetxController {
   MyUser get myUser => myUserRx.value;
 
   Rx<MyAdmin> _myAdmin =
-      MyAdmin(-1, 5, 10, 20, 25, 20, 1000, 3, "Notification", "", true).obs;
+      MyAdmin(-1, 5, 10, 20, 25, 20, 1000, 3, "Notification", "", false).obs;
   MyAdmin get myAdmin => _myAdmin.value;
 
   Rx<Others> otherRX = Others("", "", "", "").obs;
@@ -51,7 +49,7 @@ class AuthController extends GetxController {
   @override
   onInit() {
     otherRX.bindStream(OtherService().getNoticeStream());
-    allUser.bindStream(UserService().getAllUsers());
+    //allUser.bindStream(UserService().getAllUsers());
     if (FirebaseAuth.instance.currentUser != null) {
       //UserService().getCurrentUser().then((value) => myUserRx.value = value);
       myUserRx.bindStream(UserService().getCurrentUserStream());
@@ -59,17 +57,23 @@ class AuthController extends GetxController {
     _myAdmin.bindStream(AdminService().getAdmin());
     print(myUser.uid);
     print(myUser.name);
+    /* MyStorage.init().then((value) => box = value);*/
+
     super.onInit();
   }
 
   getDailyBalance() {
-    int val = DateDifference().days(myUser.dailyBonusDate);
+    int val = DateDifference().days(myUser.LastDailyBonusDate);
     print('val');
     print(val);
     if (val != 0) {
       UserService()
           .updateUserBalance(myAdmin.dailyBonus * myUser.package, myUser)
           .then((value) {
+        /* putData(
+            FirebaseAuth.instance.currentUser.uid,
+            getData(FirebaseAuth.instance.currentUser.uid) +
+                myAdmin.dailyBonus * myUser.package);*/
         MySnackBar.show('Bonus Added Successfully');
       }).catchError((e) {
         ErrorHandler.handle(e);
@@ -80,22 +84,21 @@ class AuthController extends GetxController {
   }
 
   login() {
-    if (formKey.currentState.validate()) {
-      print(mobileController.text);
-      isLoading.value = true;
-      LoginService()
-          .login(mobileController.text + '@gmail.com', passwordController.text)
-          .then((user) {
-        if (user.user != null) {
-          isLoading.value = false;
-          Get.to(() => MyRoot());
-        }
+    print(mobileController.text);
+    isLoading.value = true;
+    LoginService()
+        .login(mobileController.text + '@gmail.com', passwordController.text)
+        .then((user) {
+      if (user.user != null) {
         isLoading.value = false;
-      }).catchError((e) {
-        isLoading.value = false;
-        ErrorHandler.handle(e);
-      });
-    }
+
+        Get.to(() => MyRoot());
+      }
+      isLoading.value = false;
+    }).catchError((e) {
+      isLoading.value = false;
+      ErrorHandler.handle(e);
+    });
   }
 
   @override
@@ -105,4 +108,21 @@ class AuthController extends GetxController {
     passwordController.dispose();
     super.onClose();
   }
+
+  /*var box;
+  void putData(String uid, int balance) {
+    if (box != null) {
+      box.put(uid, balance);
+    }
+  }
+
+  int getData(String uid) {
+    return box.get(uid);
+  }*/
 }
+
+/*class MyStorage {
+  static Future init() async {
+    return await Hive.openBox('balance');
+  }
+}*/

@@ -21,7 +21,6 @@ import 'package:bcl_earn/service/storage_service.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SignUpController extends GetxController {
-  final formKeySignUp = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final mobileController = TextEditingController();
   final passwordController = TextEditingController();
@@ -39,105 +38,101 @@ class SignUpController extends GetxController {
   }
 
   signUp() {
-    if (formKeySignUp.currentState.validate()) {
-      isLoading.value = true;
+    isLoading.value = true;
 
-      if (xFile == null) {
-        SignUpService()
-            .signUp(
-                mobileController.text + "@gmail.com", passwordController.text)
-            .then((user) {
-          if (user != null) {
-            var myUser = MyUser(
-                0,
-                nameController.text,
-                passwordController.text,
-                mobileController.text,
-                user.uid,
-                country,
-                0,
-                DateTime.now().subtract(Duration(days: 2)),
-                mobileController.text,
-                imageUrl,
-                1,
-                0,
-                "");
-            SignUpService().createUser(myUser).then((value) {
-              isLoading.value = false;
-              MySnackBar.show("Registration Successful");
-              Get.to(() => MyLoginPage());
-              if (referralController.text != null ||
-                  referralController.text != "") {
-                UserService()
-                    .addRefer(referralController.text,
-                        Get.find<AuthController>().myAdmin.referralBonus)
-                    .catchError((e) {
-                  MySnackBar.showFail("Refer Error :${e.toString()}");
-                });
-              }
+    if (xFile == null) {
+      SignUpService()
+          .signUp(mobileController.text + "@gmail.com", passwordController.text)
+          .then((user) {
+        if (user != null) {
+          var myUser = MyUser(
+              0,
+              nameController.text,
+              passwordController.text,
+              mobileController.text,
+              user.uid,
+              country,
+              0,
+              DateTime.now().subtract(Duration(days: 2)),
+              mobileController.text,
+              imageUrl,
+              1,
+              0,
+              "");
+          SignUpService().createUser(myUser).then((value) {
+            isLoading.value = false;
+            MySnackBar.show("Registration Successful");
+            Get.to(() => MyLoginPage());
+            if (referralController.text != null ||
+                referralController.text != "") {
+              UserService()
+                  .addRefer(referralController.text,
+                      Get.find<AuthController>().myAdmin.referralBonus)
+                  .catchError((e) {
+                MySnackBar.showFail("Refer Error :${e.toString()}");
+              });
+            }
+          }).catchError((e) {
+            isLoading.value = false;
+            ErrorHandler.handle(e);
+          });
+        }
+      }).catchError((e) {
+        isLoading.value = false;
+        ErrorHandler.handle(e);
+      });
+    } else {
+      SignUpService()
+          .signUp(mobileController.text + "@gmail.com", passwordController.text)
+          .then((user) {
+        if (user != null) {
+          if (xFile != null) {
+            image.value = xFile.name;
+            StorageService().uploadFile(xFile).then((value) {
+              imageUrl = value;
+              var myUser = MyUser(
+                  0,
+                  nameController.text,
+                  passwordController.text,
+                  mobileController.text,
+                  user.uid,
+                  country,
+                  0,
+                  DateTime.now().subtract(Duration(days: 2)),
+                  mobileController.text,
+                  imageUrl,
+                  1,
+                  0,
+                  "");
+              SignUpService().createUser(myUser).then((value) {
+                isLoading.value = false;
+
+                MySnackBar.show("Registration Successful");
+                Get.to(() => MyLoginPage());
+
+                if (referralController.text != null ||
+                    referralController.text != "") {
+                  UserService()
+                      .addRefer(referralController.text,
+                          Get.find<AuthController>().myAdmin.referralBonus)
+                      .catchError((e) {
+                    MySnackBar.showFail("Refer Error :${e.toString()}");
+                  });
+                }
+              }).catchError((e) {
+                isLoading.value = false;
+                ErrorHandler.handle(e);
+              });
             }).catchError((e) {
               isLoading.value = false;
               ErrorHandler.handle(e);
             });
           }
-        }).catchError((e) {
-          isLoading.value = false;
-          ErrorHandler.handle(e);
-        });
-      } else {
-        SignUpService()
-            .signUp(
-                mobileController.text + "@gmail.com", passwordController.text)
-            .then((user) {
-          if (user != null) {
-            if (xFile != null) {
-              image.value = xFile.name;
-              StorageService().uploadFile(xFile).then((value) {
-                imageUrl = value;
-                var myUser = MyUser(
-                    0,
-                    nameController.text,
-                    passwordController.text,
-                    mobileController.text,
-                    user.uid,
-                    country,
-                    0,
-                    DateTime.now().subtract(Duration(days: 2)),
-                    mobileController.text,
-                    imageUrl,
-                    1,
-                    0,
-                    "");
-                SignUpService().createUser(myUser).then((value) {
-                  isLoading.value = false;
-
-                  MySnackBar.show("Registration Successful");
-                  Get.to(() => MyLoginPage());
-
-                  if (referralController.text != null ||
-                      referralController.text != "") {
-                    UserService()
-                        .addRefer(referralController.text,
-                            Get.find<AuthController>().myAdmin.referralBonus)
-                        .catchError((e) {
-                      MySnackBar.showFail("Refer Error :${e.toString()}");
-                    });
-                  }
-                }).catchError((e) {
-                  isLoading.value = false;
-                  ErrorHandler.handle(e);
-                });
-              }).catchError((e) {
-                isLoading.value = false;
-                ErrorHandler.handle(e);
-              });
-            }
-          }
-        }).catchError((e) {
-          isLoading.value = false;
-          ErrorHandler.handle(e);
-        });
-      }
+        }
+      }).catchError((e) {
+        isLoading.value = false;
+        ErrorHandler.handle(e);
+      });
     }
   }
 

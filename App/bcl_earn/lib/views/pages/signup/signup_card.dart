@@ -14,7 +14,7 @@ import 'package:bcl_earn/controllers/auth/signup_controller.dart';
 
 class SignUpCard extends StatelessWidget {
   final controller = Get.put(SignUpController());
-
+  final formKeySignUp = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -37,7 +37,7 @@ class SignUpCard extends StatelessWidget {
                     ),
                     padding: EdgeInsets.all(15),
                     child: Form(
-                      key: controller.formKeySignUp,
+                      key: formKeySignUp,
                       child: Column(
                         children: [
                           SizedBox(
@@ -149,7 +149,10 @@ class SignUpCard extends StatelessWidget {
                                 : MyLoginButton(
                                     label: "SIGNUP",
                                     onClick: () {
-                                      controller.signUp();
+                                      if (formKeySignUp.currentState
+                                          .validate()) {
+                                        controller.signUp();
+                                      }
                                     },
                                     color: MyColors.appBarColor,
                                     labelColor: Colors.white,

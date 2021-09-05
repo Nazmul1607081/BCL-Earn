@@ -24,7 +24,7 @@ class MyLoginPage extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      bottomNavigationBar: MyAd(),
+      //bottomNavigationBar: MyAd(),
       drawer: (FirebaseAuth.instance.currentUser == null) ? null : MyDrawer(),
       body: Stack(
         children: [

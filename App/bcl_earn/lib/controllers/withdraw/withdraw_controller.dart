@@ -47,6 +47,7 @@ class MyWithDrawController extends GetxController {
       //UserService().getCurrentUser().then((value) => myUserRx.value = value);
       myUserRx.bindStream(UserService().getCurrentUserStream());
     }
+/*    MyStorage.init().then((value) => box = value);*/
     super.onInit();
   }
 
@@ -68,6 +69,9 @@ class MyWithDrawController extends GetxController {
                 myUser.uid))
             .then((value) {
           MySnackBar.show("Withdraw Successful");
+
+          /* putData(FirebaseAuth.instance.currentUser.uid,
+              getData(FirebaseAuth.instance.currentUser.uid) + amount.value);*/
           Get.off(MyRoot());
         }).catchError((e) {
           MySnackBar.showFail(e.toString());
@@ -77,4 +81,15 @@ class MyWithDrawController extends GetxController {
       MySnackBar.showFail("Not Enough Balance or Something Error");
     }
   }
+
+/*  var box;
+  void putData(String uid, int balance) {
+    if (box != null) {
+      box.put(uid, balance);
+    }
+  }
+
+  int getData(String uid) {
+    return box.get(uid);
+  }*/
 }

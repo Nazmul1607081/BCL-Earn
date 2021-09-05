@@ -30,6 +30,7 @@ class MyWithdrawService {
     var stream = FirebaseFirestore.instance
         .collection('withdraw')
         .where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+        .limit(10)
         .snapshots();
     return stream.map((event) => event.docs
         .map((e) => MyWithDraw(

@@ -8,9 +8,9 @@ class MyUser {
   final String uid;
   final String country;
   final int refer;
-  final DateTime dailyBonusDate;
+  final DateTime LastDailyBonusDate;
   final String referralNumber;
-  final String image;
+  final String imageUrl;
   final int package;
   final int click;
   final String message;
@@ -23,9 +23,9 @@ class MyUser {
     this.uid,
     this.country,
     this.refer,
-    this.dailyBonusDate,
+    this.LastDailyBonusDate,
     this.referralNumber,
-    this.image,
+    this.imageUrl,
     this.package,
     this.click,
     this.message,
@@ -40,9 +40,9 @@ class MyUser {
       'uid': uid,
       'country': country,
       'refer': refer,
-      'dailyBonusDate': dailyBonusDate,
+      'LastDailyBonusDate': LastDailyBonusDate,
       'referralNumber': referralNumber,
-      'image': image,
+      'imageUrl': imageUrl,
       'package': package,
       'click': click
     };
@@ -50,8 +50,15 @@ class MyUser {
 
   static MyUser toObj(DocumentSnapshot documentSnapshot) {
     String message = "";
+    DateTime date;
     if (documentSnapshot.data().toString().contains('message')) {
       message = documentSnapshot['message'];
+    }
+    if (documentSnapshot['LastDailyBonusDate'] == null) {
+      date = DateTime.now().subtract(Duration(days: 1));
+    } else {
+      date = DateTime.parse(
+          documentSnapshot['LastDailyBonusDate'].toDate().toString());
     }
     return MyUser(
         documentSnapshot['balance'],
@@ -61,9 +68,9 @@ class MyUser {
         documentSnapshot['uid'],
         documentSnapshot['country'],
         documentSnapshot['refer'],
-        DateTime.parse(documentSnapshot['dailyBonusDate'].toDate().toString()),
+        date,
         documentSnapshot['referralNumber'],
-        documentSnapshot['image'],
+        documentSnapshot['imageUrl'],
         documentSnapshot['package'],
         documentSnapshot['click'],
         message);

@@ -6,7 +6,6 @@ class MyDeviceInfoHelper {
 
   getDeviceInfo() async {
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    print(androidInfo.id);
     print(androidInfo.androidId);
   }
 }

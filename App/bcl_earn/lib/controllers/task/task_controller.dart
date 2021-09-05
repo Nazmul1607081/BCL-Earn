@@ -76,6 +76,8 @@ class TaskController extends GetxController {
       });
     });*/
 
+/*    MyStorage.init().then((value) => box = value);*/
+
     super.onInit();
   }
 
@@ -134,6 +136,10 @@ class TaskController extends GetxController {
       await UserService()
           .updateUserBalance(myAdmin.claimPoint * myUser.package, myUser)
           .then((value) async {
+        /*putData(
+            FirebaseAuth.instance.currentUser.uid,
+            getData(FirebaseAuth.instance.currentUser.uid) +
+                myAdmin.claimPoint * myUser.package);*/
         code = 1;
         MySnackBar.show('Bonus Added Successfully');
       });
@@ -155,4 +161,15 @@ class TaskController extends GetxController {
     print("DISPOSE");
     super.onClose();
   }
+
+/*  var box;
+  void putData(String uid, int balance) {
+    if (box != null) {
+      box.put(uid, balance);
+    }
+  }
+
+  int getData(String uid) {
+    return box.get(uid);
+  }*/
 }

@@ -17,10 +17,9 @@ class _MySplashPageState extends State<MySplashPage> {
   void initState() {
     /*loadOpenAd();
     appOpenAd.onEvent.listen((e) => print(e));*/
-    final c = Get.put(TaskController());
-    Future.delayed(Duration(seconds: 1)).then((value) {
-      MyNotificationDialog().showDialog();
-      Get.offAll(() => MyRoot());
+    Future.delayed(Duration(seconds: 2)).then((value) {
+      //MyNotificationDialog().showDialog();
+      Get.off(() => MyRoot());
     });
 
     super.initState();

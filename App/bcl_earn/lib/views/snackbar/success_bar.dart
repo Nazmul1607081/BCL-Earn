@@ -5,15 +5,15 @@ import 'package:get/get.dart';
 
 class MySnackBar {
   static show(label) {
-    /*Get.showSnackbar(GetBar(
+    Get.showSnackbar(GetBar(
       messageText: MyText(
         label: "$label",
         color: Colors.white,
       ),
       duration: Duration(seconds: 3),
       backgroundColor: Colors.green,
-    ));*/
-    MyToast.success(label);
+    ));
+    //MyToast.success(label);
   }
 
   static showFail(label) {
