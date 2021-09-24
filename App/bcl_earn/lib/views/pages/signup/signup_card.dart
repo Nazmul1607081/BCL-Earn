@@ -149,6 +149,7 @@ class SignUpCard extends StatelessWidget {
                                 : MyLoginButton(
                                     label: "SIGNUP",
                                     onClick: () {
+                                      //controller.phoneNumberSignUp();
                                       if (formKeySignUp.currentState
                                           .validate()) {
                                         controller.signUp();

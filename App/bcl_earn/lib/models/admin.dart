@@ -12,6 +12,7 @@ class MyAdmin {
   final String notification;
   final String finalTask;
   final bool maintainMode;
+  final String withDrawMessage;
 
   MyAdmin(
       this.totalTask,
@@ -24,7 +25,8 @@ class MyAdmin {
       this.click,
       this.notification,
       this.finalTask,
-      this.maintainMode);
+      this.maintainMode,
+      this.withDrawMessage);
 
   Map<String, dynamic> toMap() {
     return {
@@ -38,7 +40,8 @@ class MyAdmin {
       'click': click,
       'notification': notification,
       'finalTask': finalTask,
-      'maintainMode': maintainMode
+      'maintainMode': maintainMode,
+      'withDrawMessage': withDrawMessage,
     };
   }
 
@@ -54,7 +57,8 @@ class MyAdmin {
         documentSnapshot['click'],
         documentSnapshot['notification'],
         documentSnapshot['finalTask'],
-        documentSnapshot['maintain']);
+        documentSnapshot['maintain'],
+        documentSnapshot['withDrawMessage']);
   }
 
   /*static MyAdmin toObjFromQueryDocumentSnapshots(QueryDocumentSnapshot e) {

@@ -40,7 +40,8 @@ class AuthController extends GetxController {
   MyUser get myUser => myUserRx.value;
 
   Rx<MyAdmin> _myAdmin =
-      MyAdmin(-1, 5, 10, 20, 25, 20, 1000, 3, "Notification", "", false).obs;
+      MyAdmin(-1, 5, 10, 20, 25, 20, 1000, 3, "Notification", "", false, "")
+          .obs;
   MyAdmin get myAdmin => _myAdmin.value;
 
   Rx<Others> otherRX = Others("", "", "", "").obs;

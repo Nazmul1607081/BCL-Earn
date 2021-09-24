@@ -3,6 +3,7 @@ import 'package:bcl_earn/controllers/auth/auth_controller.dart';
 import 'package:bcl_earn/helper/device_info.dart';
 import 'package:bcl_earn/models/task.dart';
 import 'package:bcl_earn/service/user_service.dart';
+import 'package:bcl_earn/utils/test.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -57,6 +58,9 @@ Future<void> main() async {
   /*UserService().updateUser().then((value) {
     print("DONE");
   });*/
+
+  //test();
+
   runApp(MyApp());
 }
 

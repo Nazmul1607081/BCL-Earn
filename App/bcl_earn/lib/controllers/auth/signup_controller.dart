@@ -1,5 +1,6 @@
 import 'package:bcl_earn/controllers/auth/auth_controller.dart';
 import 'package:bcl_earn/error/error.dart';
+import 'package:bcl_earn/helper/toast.dart';
 
 import 'package:bcl_earn/models/users.dart';
 import 'package:bcl_earn/root.dart';
@@ -9,6 +10,7 @@ import 'package:bcl_earn/service/login_service.dart';
 import 'package:bcl_earn/service/signup_service.dart';
 import 'package:bcl_earn/service/user_service.dart';
 import 'package:bcl_earn/views/pages/login/login_page.dart';
+import 'package:bcl_earn/views/pages/signup/mobile_varification.dart';
 import 'package:bcl_earn/views/snackbar/success_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,6 +28,7 @@ class SignUpController extends GetxController {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final referralController = TextEditingController();
+  final smsCodeController = TextEditingController();
   String imageUrl = "";
   var image = "Upload Image".obs;
   XFile xFile;
@@ -62,7 +65,8 @@ class SignUpController extends GetxController {
           SignUpService().createUser(myUser).then((value) {
             isLoading.value = false;
             MySnackBar.show("Registration Successful");
-            Get.to(() => MyLoginPage());
+            //Get.to(() => MyLoginPage());
+            Get.to(() => MyRoot());
             if (referralController.text != null ||
                 referralController.text != "") {
               UserService()
@@ -147,6 +151,9 @@ class SignUpController extends GetxController {
       ErrorHandler.handle(e);
     });
   }
+
+  User user;
+  String code = '';
 
   @override
   void onClose() {

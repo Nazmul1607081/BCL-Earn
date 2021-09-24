@@ -9,6 +9,7 @@ import 'package:bcl_earn/service/user_service.dart';
 import 'package:bcl_earn/views/dialogs/maintain.dart';
 import 'package:bcl_earn/views/dialogs/notification_dialoag.dart';
 import 'package:bcl_earn/views/pages/dashboard/loading_name_card.dart';
+import 'package:bcl_earn/views/pages/signup/mobile_varification.dart';
 import 'package:bcl_earn/views/widgets/home_card.dart';
 import 'package:bcl_earn/views/widgets/text_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -28,8 +29,10 @@ class _MyDashBoardState extends State<MyDashBoard> {
   void initState() {
     Future.delayed(Duration(seconds: 2)).then((value) {
       MyNotificationDialog().showDialog();
+      //Get.to(() => CodeVerification());
       print('DIALOG');
     });
+
     super.initState();
   }
 

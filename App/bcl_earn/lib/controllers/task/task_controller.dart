@@ -20,7 +20,7 @@ import 'package:bcl_earn/ads/final_task.dart';
 
 class TaskController extends GetxController {
   Rx<MyAdmin> _myAdmin =
-      MyAdmin(-1, 5, 10, 20, 25, 20, 1000, 3, "Notification", "", true).obs;
+      MyAdmin(-1, 5, 10, 20, 25, 20, 1000, 3, "Notification", "", true, "").obs;
   MyAdmin get myAdmin => _myAdmin.value;
 
   var completedTask = 0.obs;

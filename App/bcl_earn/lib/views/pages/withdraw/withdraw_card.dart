@@ -228,8 +228,7 @@ class _MyWithDrawCardState extends State<MyWithDrawCard> {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: MyText(
-                              label:
-                                  "We will confirmed your payment within 1 hours",
+                              label: userController.myAdmin.withDrawMessage,
                               color: Colors.black,
                               size: 18,
                               fontWeight: FontWeight.bold,
